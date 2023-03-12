@@ -39,25 +39,41 @@ class baseWeapon(ABC):
     def getWeaponType(self):
         return(self.weaponType)
 
-    def printWeaponStats(self):
-        print("Weapon Type: " + self.weaponType, "\nWeapon Level: " + str(self.weaponLevel), "\nWeapon Rarity: " + self.rarity, "\nWeapon Attack: " + str(self.attack))
+    @abstractmethod
+    def __str__(self):
+        return f'Weapon type: {self.weaponType} \nWeapon level: {self.weaponLevel} \nWeapon rarity: {self.rarity} \nWeapon attack: {self.attack}'
 
 class bowClass(baseWeapon):
     def __init__(self, newLevel):
         super().__init__(newLevel,10,"Bow")
 
+    def __str__(self):
+        return super().__str__()
+
 class swordClass(baseWeapon):
     def __init__(self, newLevel):
         super().__init__(newLevel,15,"Sword")
+
+    def __str__(self):
+        return super().__str__()
 
 class axeClass(baseWeapon):
     def __init__(self, newLevel):
         super().__init__(newLevel,20,"Axe")
 
+    def __str__(self):
+        return super().__str__()
+
 class daggerClass(baseWeapon):
     def __init__(self, newLevel):
         super().__init__(newLevel,5,"Dagger")
 
+    def __str__(self):
+        return super().__str__()
+
 class fistClass(baseWeapon):
     def __init__(self, newLevel):
         super().__init__(newLevel,1,"Fists")
+
+    def __str__(self):
+        return super().__str__()

@@ -1,6 +1,6 @@
 from setup import weapons
+import random
 
-#TODO Cover exceptions
 def pickWeapon(player):
     choiceMade = False
     while choiceMade == False:
@@ -31,3 +31,13 @@ def pickWeapon(player):
                 return(weapons.fistClass(player.level))
             case _:
                 print("\nI'm sorry " + player.getName() + ", I do not understand your tounge. Please tell me the number or the name of the weapon in English")
+
+def createTownList():
+    with open("resources\\town_names.txt") as townFile:
+        town_list = townFile.readlines()
+    for count,town in enumerate(town_list):
+        town_list[count] = town.rstrip("\n")
+    return town_list
+
+def pickTown(town = createTownList()):
+    return town[random.randint(1,len(town) - 1)]
