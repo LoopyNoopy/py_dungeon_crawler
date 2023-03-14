@@ -9,6 +9,8 @@ class baseWeapon(ABC):
         self.weaponLevel = newLevel
         self.attack = random.randint(newBaseAttack,newBaseAttack+5) * (self.weaponLevel*self.rarityModifier(self.rarity))
         self.weaponType = newWeaponType
+        #ToDo Scale value with level, attack and rarity
+        self.value = 100
 
     def randomiseRarity(self):
         rarityValue = random.randint(1,4)
