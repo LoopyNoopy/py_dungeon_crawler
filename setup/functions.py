@@ -1,4 +1,4 @@
-from setup import weapons
+from setup import weapons, locations
 import random
 
 def pickWeapon(player):
@@ -55,3 +55,7 @@ def createPlaceList(type):
 def pickPlaceName(type):
     nameList = createPlaceList(type)
     return nameList[random.randint(1,len(nameList) - 1)]
+
+def randomiseEvent():
+    location = locations.fieldClass
+    return location

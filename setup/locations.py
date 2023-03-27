@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from setup import functions,weapons
+from setup import functions,weapons,characters
 import random
 import keyboard
 import os
@@ -8,14 +8,27 @@ clear = lambda: os.system('cls')
 
 class baseLocation(ABC):
 
-    def __init__(self, newLocationType):
+    def __init__(self, newLocationType, enemiesPossible):
         self.locationType = newLocationType
         self.locationName = functions.pickPlaceName(self.locationType)
+        if enemiesPossible:
+            if self.randomsieCombat():
+                enemies = [None] * random.randint(1,3)
+                for enemy in enemies:
+                    # ToDo Randomise enemy types
+                    enemies[enemy] = characters.orc
+                return
+
+    def randomsieCombat(self):
+        if random.randint(0,1) == 1:
+            return True
+        else:
+            return False
 
 class townClass(baseLocation):
 
     def __init__(self, player):
-        super().__init__("town")
+        super().__init__("town", False)
         self.shopItems = []
         for item in range(random.randint(3, 7)):
             self.shopItems.append(functions.weaponMaker(player))
@@ -30,8 +43,7 @@ class townClass(baseLocation):
             print(str(self.shopItems[item])+"\n")
         return
 
-    def buyWeapon(self,firstWeapon = False):
-        weaponNo = input("Please enter the number: ")
+    def buyWeapon(self,weaponNo,firstWeapon = False):
         if int(weaponNo) <= len(self.shopItems):
             return self.shopItems[int(weaponNo)]
         else:
@@ -42,7 +54,7 @@ class townClass(baseLocation):
         userInput = None
         weaponNo = 0
         while userInput == None:
-            print("Weapon number " + str(weaponNo))
+            print("Weapon number: " + str(weaponNo))
             print(str(self.shopItems[weaponNo])+"\n")
             keyPress = keyboard.read_key()
             match keyPress:
@@ -58,9 +70,23 @@ class townClass(baseLocation):
                         weaponNo = len(self.shopItems) -1
                     clear()
                 case _:
-                    # ToDo Fix accidental string keypress
-                    if int(keyPress) <= len(self.shopItems) -1:
-                        print("Key in range")
+                    # ToDo Fix duplicate string keypress
+                    if keyPress.isnumeric():
+                        if int(keyPress) <= len(self.shopItems) -1:
+                            print("\nWeapon number: "+str(keyPress))
+                            print(str(self.shopItems[int(keyPress)]))
+                            finalChoice = input("\nAre you sure you want to select weapon "+str(keyPress)+"?\ny for yes, n for no: ")
+                            match finalChoice:
+                                case "y":
+                                    self.buyWeapon(int(keyPress))
+                                    return
+                                case "n":
+                                    print("Putting weapon back on the shelf...\n")
                     else:
-                        print("Key not valid")
+                        # ToDo Randomise these comments
+                        print("\nI don't speak orc child, use your words.")
         return
+
+class fieldClass(baseLocation):
+    def __init__(self):
+        super().__init__("field",True)
