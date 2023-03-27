@@ -11,12 +11,13 @@ class baseLocation(ABC):
     def __init__(self, newLocationType, enemiesPossible):
         self.locationType = newLocationType
         self.locationName = functions.pickPlaceName(self.locationType)
+        # ToDO fix crash if there are no enemies
         if enemiesPossible:
             if self.randomsieCombat():
-                enemies = [None] * random.randint(1,3)
-                for enemy in enemies:
-                    # ToDo Randomise enemy types
-                    enemies[enemy] = characters.orc
+                enemyClasses = characters.enemy.__subclasses__()
+                self.enemies = [None] * random.randint(1,3)
+                for enemy in range(len(self.enemies)):
+                    self.enemies[enemy] = enemyClasses[random.randint(0,len(enemyClasses)-1)]
                 return
 
     def randomsieCombat(self):
@@ -24,7 +25,8 @@ class baseLocation(ABC):
             return True
         else:
             return False
-
+    def getEnemyList(self):
+        return self.enemies
 class townClass(baseLocation):
 
     def __init__(self, player):

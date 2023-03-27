@@ -20,8 +20,6 @@ playerWeapon = startingTown.cycleWeapons()
 print(str(playerWeapon))
 # ToDo Make a comment about weapons rarity
 while player.health >= 1:
-    # ToDo create new scenario
-    # ToDo act in scenario
     print("In the loop")
     currentLocation = functions.randomiseEvent()
-    print(str(currentLocation))
+    print(currentLocation.getEnemyList())

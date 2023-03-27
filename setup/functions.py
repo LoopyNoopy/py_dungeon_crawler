@@ -57,5 +57,5 @@ def pickPlaceName(type):
     return nameList[random.randint(1,len(nameList) - 1)]
 
 def randomiseEvent():
-    location = locations.fieldClass
+    location = locations.fieldClass()
     return location

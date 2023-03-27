@@ -25,13 +25,27 @@ class baseCharacter(ABC):
 class playerCharacter(baseCharacter):
     def __init__(self, newName, newLevel):
         super().__init__(newName, newLevel)
+class enemy(baseCharacter):
+    def __init__(self,newName,newLevel):
+        super().__init__(newName,newLevel)
 
-class orc(baseCharacter):
+class orc(enemy):
     def __init__(self, levelModifier):
-        orcLevel = random.randint(levelModifier-1, levelModifier+1)
+        orcLevel = random.randint(levelModifier - 1, levelModifier + 1)
         if orcLevel <= 0:
             orcLevel = 1
-        super().__init__("Orc",orcLevel)
+        super().__init__("Orc", orcLevel)
+        self.weapon = weapons.axeClass(orcLevel)
+
+    def __str__(self):
+        return f'Enemy type: {self.name} \nEnemy level: {self.level} \n{str(self.weapon)}\n'
+
+class assassin(enemy):
+    def __init__(self, levelModifier):
+        orcLevel = random.randint(levelModifier - 1, levelModifier + 1)
+        if orcLevel <= 0:
+            orcLevel = 1
+        super().__init__("Orc", orcLevel)
         self.weapon = weapons.axeClass(orcLevel)
 
     def __str__(self):
