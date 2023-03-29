@@ -16,9 +16,9 @@ class baseLocation(ABC):
             if self.randomsieCombat():
                 enemyClasses = characters.enemy.__subclasses__()
                 self.enemies = [None] * random.randint(1,3)
-                # ToDo Need to find a way to use the actual class of enemy and not the enemy subclass
+                # ToDo Make enemy level reflect the player level
                 for enemy in range(len(self.enemies)):
-                    self.enemies[enemy] = enemyClasses[random.randint(0,len(enemyClasses)-1)]()
+                    self.enemies[enemy] = enemyClasses[random.randint(0,len(enemyClasses)-1)](1)
                 return
             else:
                 self.enemiesPresent = False

@@ -4,11 +4,6 @@ from setup import characters, locations, functions
 print("Welcome to Loopy Noopy's Dungeon Crawler!\n")
 playerName = input("What is your characters name?\n")
 player = characters.playerCharacter(playerName, 1)
-enemyClasses = characters.enemy.__subclasses__()
-print(enemyClasses)
-newEnemy = enemyClasses[1]
-print(newEnemy)
-newNewEnemy = newEnemy()
 startingTown = locations.townClass(player)
 print("Welcome to " + str(startingTown) + ", " + player.getName() + "!\nSeeing as you don't have anything to defend "
                                                                     "yourself with I can see you're new here... How you"
