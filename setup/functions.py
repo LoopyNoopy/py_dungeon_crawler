@@ -59,3 +59,8 @@ def pickPlaceName(type):
 def randomiseEvent():
     location = locations.fieldClass()
     return location
+
+def getPlayerLevelFromFile():
+    with open("resources\gameVariables.txt","r") as file:
+        fileLines = file.readlines()
+        return fileLines[0].rstrip("\n")
