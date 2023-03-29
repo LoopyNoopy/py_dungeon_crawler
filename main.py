@@ -25,6 +25,9 @@ while player.health >= 1:
     if not currentLocation.getEnemyList() == None:
         enemiesAlive = True
         while enemiesAlive == True:
+            chosenEnemy = functions.cycleList(currentLocation.getEnemyList())
+            print(str(chosenEnemy))
+            #Check to see if all enemies are dead
             for enemy in currentLocation.enemies:
                 if enemy.health >=0:
                     enemiesAlive = False

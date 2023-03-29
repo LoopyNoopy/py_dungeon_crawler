@@ -4,8 +4,6 @@ import random
 import keyboard
 import os
 
-clear = lambda: os.system('cls')
-
 class baseLocation(ABC):
 
     def __init__(self, newLocationType, enemiesPossible):
@@ -58,6 +56,7 @@ class townClass(baseLocation):
         return
 
     def cycleWeapons(self):
+        # Todo make use of the cycle weapons in functions.py
         userInput = None
         weaponNo = 0
         while userInput == None:
@@ -69,13 +68,13 @@ class townClass(baseLocation):
                     weaponNo += 1
                     if weaponNo > len(self.shopItems) - 1:
                         weaponNo = 0
-                    clear()
+                    functions.clearConsole()
 
                 case "down":
                     weaponNo -= 1
                     if weaponNo <= 0:
                         weaponNo = len(self.shopItems) -1
-                    clear()
+                    functions.clearConsole()
                 case _:
                     # ToDo Fix duplicate string keypress
                     if keyPress.isnumeric():

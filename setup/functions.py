@@ -1,5 +1,9 @@
 from setup import weapons, locations
-import random
+import random, keyboard, os
+
+def clearConsole():
+    clear = lambda: os.system('cls')
+    return clear
 
 def pickWeapon(player):
     choiceMade = False
@@ -64,3 +68,40 @@ def getPlayerLevelFromFile():
     with open("resources\gameVariables.txt","r") as file:
         fileLines = file.readlines()
         return fileLines[0].rstrip("\n")
+
+def cycleList(theList):
+    itemNo = 0
+    while True:
+        print("Weapon number: " + str(itemNo))
+        print(str(theList[itemNo]) + "\n")
+        keyPress = keyboard.read_key()
+        match keyPress:
+            case "up":
+                itemNo += 1
+                if itemNo > len(theList) - 1:
+                    itemNo = 0
+                clearConsole()
+
+            case "down":
+                itemNo -= 1
+                if itemNo <= 0:
+                    itemNo = len(theList) - 1
+                clearConsole()
+            case _:
+                # ToDo Fix duplicate string keypress
+                if keyPress.isnumeric():
+                    if int(keyPress) <= len(theList) - 1:
+                        print("\nList number: " + str(keyPress))
+                        print(str(theList[int(keyPress)]))
+                        finalChoice = input(
+                            "\nAre you sure you want to select " + str(keyPress) + "?\ny for yes, n for no: ")
+                        match finalChoice:
+                            case "y":
+                                # ToDo something about choice
+                                return theList[int(keyPress)]
+                            case "n":
+                                print("Please make your selection...\n")
+                else:
+                    # ToDo Randomise these comments
+                    print("\nYou can't pick the ground, try again.")
+    return
