@@ -41,7 +41,10 @@ while player.health >= 1:
                     chosenEnemy = functions.cycleList(currentLocation.getEnemyList(), "Enemy")
                     print("Attacking "+str(chosenEnemy.name) + " for " + str(playerWeapon.attack))
                     chosenEnemy.health -= playerWeapon.attack
-                    print("Enemy health is now " + str(chosenEnemy.health))
+                    if chosenEnemy.health <= 0:
+                        print("Enemy has been slain!")
+                    else:
+                        print("Enemy health is now " + str(chosenEnemy.health))
                 case "2":
                     # ToDo Create a healing mechanic
                     print("nice try, you can't heal yet")
@@ -49,8 +52,8 @@ while player.health >= 1:
             #Check to see if all enemies are dead
             for enemy in currentLocation.getEnemyList():
                 if enemy.health > 0:
-                    enemiesAlive = False
-                else:
                     enemiesAlive = True
+                else:
+                    enemiesAlive = False
 
     print(currentLocation.getEnemyList())
