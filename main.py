@@ -4,6 +4,8 @@ from setup import characters, locations, functions
 print("Welcome to Loopy Noopy's Dungeon Crawler!\n")
 playerName = input("What is your characters name?\n")
 player = characters.playerCharacter(playerName, 1)
+newOrc = characters.orc(1)
+
 with open("resources\gameVariables.txt", "w+") as liveFile:
     liveFile.write(str(player.level))
 startingTown = locations.townClass(player)
@@ -15,8 +17,8 @@ print("Welcome to " + str(startingTown) + ", " + player.getName() + "!\nSeeing a
                                                                     "and now you will owe me one!\n\nAh hello! Please "
                                                                     "take a look and tell me what you like!")
 #startingTown.printShopItems()
+# ToDO Make this use the cycle list function
 playerWeapon = startingTown.cycleWeapons()
-# ToDo Make this list scrollable with arrow keys
 print(str(playerWeapon))
 # ToDo Make a comment about weapons rarity
 while player.health >= 1:
@@ -24,15 +26,31 @@ while player.health >= 1:
     currentLocation = functions.randomiseEvent()
     if not currentLocation.getEnemyList() == None:
         enemiesAlive = True
-        while enemiesAlive == True:
-            chosenEnemy = functions.cycleList(currentLocation.getEnemyList())
-            print(str(chosenEnemy))
+
+        if len(currentLocation.getEnemyList()) == 1:
+            print("An enemy has been spotted!")
+        else:
+            print("You engage " + str(len(currentLocation.getEnemyList())) + "enemies!")
+
+        while enemiesAlive:
+            functions.printBaseEnemyStats(currentLocation.getEnemyList())
+            action = input("What do you want to do?\n1: Attack\n2: Heal\n3:Retreat\nChoice: ")
+            match action:
+                case "1":
+                    print("Choose one to attack")
+                    chosenEnemy = functions.cycleList(currentLocation.getEnemyList(), "Enemy")
+                    print("Attacking "+str(chosenEnemy.name) + " for " + str(playerWeapon.attack))
+                    chosenEnemy.health -= playerWeapon.attack
+                    print("Enemy health is now " + str(chosenEnemy.health))
+                case "2":
+                    # ToDo Create a healing mechanic
+                    print("nice try, you can't heal yet")
+
             #Check to see if all enemies are dead
-            for enemy in currentLocation.enemies:
-                if enemy.health >=0:
+            for enemy in currentLocation.getEnemyList():
+                if enemy.health > 0:
                     enemiesAlive = False
                 else:
                     enemiesAlive = True
-
 
     print(currentLocation.getEnemyList())

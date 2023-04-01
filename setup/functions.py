@@ -1,9 +1,8 @@
 from setup import weapons, locations
 import random, keyboard, os
 
-def clearConsole():
-    clear = lambda: os.system('cls')
-    return clear
+clear = lambda: os.system('cls')
+
 
 def pickWeapon(player):
     choiceMade = False
@@ -69,10 +68,10 @@ def getPlayerLevelFromFile():
         fileLines = file.readlines()
         return fileLines[0].rstrip("\n")
 
-def cycleList(theList):
+def cycleList(theList, listType):
     itemNo = 0
     while True:
-        print("Weapon number: " + str(itemNo))
+        print(listType + " number: " + str(itemNo))
         print(str(theList[itemNo]) + "\n")
         keyPress = keyboard.read_key()
         match keyPress:
@@ -80,13 +79,13 @@ def cycleList(theList):
                 itemNo += 1
                 if itemNo > len(theList) - 1:
                     itemNo = 0
-                clearConsole()
+                clear
 
             case "down":
                 itemNo -= 1
                 if itemNo <= 0:
                     itemNo = len(theList) - 1
-                clearConsole()
+                clear
             case _:
                 # ToDo Fix duplicate string keypress
                 if keyPress.isnumeric():
@@ -105,3 +104,8 @@ def cycleList(theList):
                     # ToDo Randomise these comments
                     print("\nYou can't pick the ground, try again.")
     return
+
+def printBaseEnemyStats(enemyList):
+    for enemy in enemyList:
+        print("Enemy Health: " + str(enemy.health))
+        print("Enemy Attack: " + str(enemy.weapon.attack) + "\n")

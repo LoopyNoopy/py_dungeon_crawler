@@ -68,13 +68,13 @@ class townClass(baseLocation):
                     weaponNo += 1
                     if weaponNo > len(self.shopItems) - 1:
                         weaponNo = 0
-                    functions.clearConsole()
+                    functions.clear
 
                 case "down":
                     weaponNo -= 1
                     if weaponNo <= 0:
                         weaponNo = len(self.shopItems) -1
-                    functions.clearConsole()
+                    functions.clear
                 case _:
                     # ToDo Fix duplicate string keypress
                     if keyPress.isnumeric():
@@ -84,8 +84,7 @@ class townClass(baseLocation):
                             finalChoice = input("\nAre you sure you want to select weapon "+str(keyPress)+"?\ny for yes, n for no: ")
                             match finalChoice:
                                 case "y":
-                                    self.buyWeapon(int(keyPress))
-                                    return
+                                    return self.buyWeapon(int(keyPress))
                                 case "n":
                                     print("Putting weapon back on the shelf...\n")
                     else:
