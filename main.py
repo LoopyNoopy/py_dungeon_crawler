@@ -38,7 +38,13 @@ while player.health >= 1:
             match action:
                 case "1":
                     print("Choose one to attack")
-                    chosenEnemy = functions.cycleList(currentLocation.getEnemyList(), "Enemy")
+                    isEnemyDead = True
+                    while isEnemyDead:
+                        chosenEnemy = functions.cycleList(currentLocation.getEnemyList(), "Enemy")
+                        if chosenEnemy.health < 0:
+                            print("You shouldn't be beating a dead " + chosenEnemy.name +"\n Chose one that is alive.")
+                        else:
+                            isEnemyDead = False
                     print("Attacking "+str(chosenEnemy.name) + " for " + str(playerWeapon.attack))
                     chosenEnemy.health -= playerWeapon.attack
                     if chosenEnemy.health <= 0:

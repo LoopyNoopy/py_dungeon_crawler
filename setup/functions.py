@@ -96,7 +96,6 @@ def cycleList(theList, listType):
                             "\nAre you sure you want to select " + str(keyPress) + "?\ny for yes, n for no: ")
                         match finalChoice:
                             case "y":
-                                # ToDo something about choice
                                 return theList[int(keyPress)]
                             case "n":
                                 print("Please make your selection...\n")
